@@ -53,6 +53,26 @@ describe("useUtils", () => {
     expect(result.current.iFrameHeight).toBe(406);
   });
 
+  test("Make sure the height of the iframe is the minimum necessary to use it", () => {
+    const { result } = renderHook(() =>
+      useUtils({
+        enviroment: "Staging",
+      })
+    );
+
+    act(() => {
+      fireEvent(
+        window,
+        new MessageEvent("message", {
+          data: { iframeHeight: 2 },
+          origin: devURL,
+        })
+      );
+    });
+
+    expect(result.current.iFrameHeight).toBe(328);
+  });
+
   test("Redirect to return_url when a confirmation MessageEvent is received", () => {
     //@ts-ignore
     delete window.location;

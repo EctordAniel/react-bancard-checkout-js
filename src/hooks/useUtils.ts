@@ -44,7 +44,9 @@ export const useUtils = ({ enviroment, customHandler }: useUtilsParams) => {
       }
 
       if (typeof event.data.iframeHeight !== "undefined") {
-        setIframeHeight(event.data.iframeHeight + 1);
+        const iframeHeight = event.data.iframeHeight + 1;
+        const newIframeHeight = iframeHeight < 328 ? 328 : iframeHeight;
+        setIframeHeight(newIframeHeight);
         return;
       }
 
